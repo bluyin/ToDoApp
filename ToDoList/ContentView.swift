@@ -13,7 +13,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Añade un recordatorio :")
+                Text("Añade una pregunta")
                     .underline()
                     .foregroundColor(.gray)
                     .padding(.horizontal, 16)
@@ -26,18 +26,27 @@ struct ContentView: View {
                     .frame(width: 340, height: 100)
                     .overlay (
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(.blue, lineWidth: 2)
+                            .stroke(.white, lineWidth: 2)
                     )
                     .padding(.horizontal, 15)
                     .cornerRadius(3.0)
                 
-                Button("Crear") {
-                    notesViewModel.saveNote(description: descriptionNote)
-                    descriptionNote = ""
+                HStack {
+                    Button("Añadir") {
+                        notesViewModel.saveNote(description: descriptionNote)
+                        descriptionNote = ""
+                    }
+                    .disabled(descriptionNote.isEmpty)
+                    .padding()
+                    .buttonStyle(.bordered)
+                    .tint(.green)
+                    
+                    Button("Eliminar todas") {
+                        
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(.red)
                 }
-                .padding()
-                .buttonStyle(.bordered)
-                .tint(.green)
                 
                 Spacer()
                 List {
@@ -72,7 +81,7 @@ struct ContentView: View {
             .toolbar {
                 Text(notesViewModel.getNumbersOfNotes())
             }
-        }
+        }.preferredColorScheme(.dark)
     }
 }
 
@@ -80,6 +89,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .preferredColorScheme(.dark)
-            
+        
     }
 }
